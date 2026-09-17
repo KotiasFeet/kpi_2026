@@ -6,7 +6,7 @@ Describe the data structure to save *user* and *developer* profiles, *games*, *r
 
 ## **Entities & Attributes**
 
-- **`User`:** `id` (UUID, PK), `username` (String), `e-mail` (String), `registeration_date` (DateTime)
+- **`User`:** `id` (UUID, PK), `username` (String), `email` (String), `registeration_date` (DateTime)
 
 - **`Developer`:** `id` (UUID, PK), `user_id` (UUID, FK), `company` (String), `company_contact` (String)
 
