@@ -5,7 +5,7 @@ config:
   layout: dagre
 ---
 erDiagram
-    USER ||--o{ DEVELOPER : "can be"
+    USER ||--o| DEVELOPER : "can be"
     DEVELOPER ||--o{ GAME : "has"
     USER }o--o{ GAME : "owns"
     USER ||--o{ REVIEW : "writes"
