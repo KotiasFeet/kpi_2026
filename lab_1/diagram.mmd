@@ -1,0 +1,41 @@
+---
+config:
+  theme: redux-dark-color
+  look: classic
+  layout: dagre
+---
+erDiagram
+    USER ||--o{ DEVELOPER : "can be"
+    DEVELOPER ||--o{ GAME : "has"
+    USER }o--o{ GAME : "owns"
+    USER ||--o{ REVIEW : "writes"
+    GAME ||--o{ REVIEW : "gets"
+
+    USER {
+        UUID id PK
+        String username
+        String e-mail
+        DateTime registeration_date
+    }
+
+    DEVELOPER {
+        UUID id PK
+        String company
+        String company_contact
+    }
+
+    GAME {
+        UUID id PK
+        String tittle
+        TEXT description
+        DECIMAL base_price
+        Integer discount
+        DateTime release_date
+    }
+
+    REVIEW {
+        UUID id PK
+        Integer rating
+        TEXT comment
+        DateTime creation_time
+    }
