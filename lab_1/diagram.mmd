@@ -1,8 +1,6 @@
 ---
 config:
   theme: redux-dark-color
-  look: classic
-  layout: dagre
 ---
 erDiagram
     USER ||--o| DEVELOPER : "can be"
@@ -20,12 +18,14 @@ erDiagram
 
     DEVELOPER {
         UUID id PK
+				UUID user_id FK
         String company
         String company_contact
     }
 
     GAME {
         UUID id PK
+				UUID developer_id FK
         String tittle
         TEXT description
         DECIMAL base_price
@@ -35,6 +35,8 @@ erDiagram
 
     REVIEW {
         UUID id PK
+				UUID user_id FK
+				UUID game_id FK
         Integer rating
         TEXT comment
         DateTime creation_time

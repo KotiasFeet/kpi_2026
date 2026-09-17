@@ -6,13 +6,13 @@ Describe the data structure to save *user* and *developer* profiles, *games*, *r
 
 ## **Entities & Attributes**
 
-- **`User`:** `id` (UUID), `username` (String), `e-mail` (String), `registeration_date` (DateTime)
+- **`User`:** `id` (UUID, PK), `username` (String), `e-mail` (String), `registeration_date` (DateTime)
 
-- **`Developer`:** `id` (UUID), `company` (String), `company_contact` (String)
+- **`Developer`:** `id` (UUID, PK), `user_id` (UUID, FK), `company` (String), `company_contact` (String)
 
-- **`Game`:** `id` (UUID), `tittle` (String), `description` (TEXT), `base_price` (DECIMAL), `discount` (Integer), `release_date` (DateTime)
+- **`Game`:** `id` (UUID), `developer_id` (UUID, FK), `tittle` (String), `description` (TEXT), `base_price` (DECIMAL), `discount` (Integer), `release_date` (DateTime)
 
-- **`Review`:** `id` (UUID), `rating` (Integer), `comment` (TEXT), `creation_time` (DateTime)
+- **`Review`:** `id` (UUID), `user_id` (UUID, FK), `game_id` (UUID, FK), `rating` (Integer), `comment` (TEXT), `creation_time` (DateTime)
 
 ## **Relationships**
 
