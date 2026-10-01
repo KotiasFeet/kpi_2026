@@ -1,0 +1,23 @@
+flowchart LR
+    player["Player (Human)"]
+    dev["Developer (Human)"]
+    pg["PaymentGateway <br> «External System»"]
+
+    dev -. "«inherits»" .-> player
+
+    subgraph Pika-8 Hub
+        direction TB
+        UC1(["UC-001: Buy Game"])
+        UC2(["UC-002: Process Payment"])
+        UC3(["UC-003: Publish Game"])
+        UC4(["UC-004: Leave Review"])
+        UC5(["UC-005: View Game Page"])
+    end
+
+    player --> UC1
+    player --> UC5
+    dev --> UC3
+    pg --> UC2
+
+    UC1 -. "«include»" .-> UC2
+    UC4 -. "«extend»" .-> UC5

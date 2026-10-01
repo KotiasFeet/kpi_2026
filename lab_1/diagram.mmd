@@ -3,11 +3,11 @@ config:
   theme: redux-dark-color
 ---
 erDiagram
-    USER ||--o| DEVELOPER : "can be"
-    DEVELOPER ||--o{ GAME : "has"
-    USER }o--o{ GAME : "owns"
-    USER ||--o{ REVIEW : "writes"
-    GAME ||--o{ REVIEW : "gets"
+    USER 			||--o| 	DEVELOPER : "can be"
+    DEVELOPER }|--o{ 	GAME 			: "has"
+    USER 			}o--o{ 	GAME 			: "owns"
+    USER 			||--o{ 	REVIEW 		: "writes"
+    GAME 			||--o{ 	REVIEW 		: "gets"
 
     USER {
         UUID id PK
@@ -31,6 +31,7 @@ erDiagram
         DECIMAL base_price
         Integer discount
         DateTime release_date
+				INTERVAL playtime
     }
 
     REVIEW {

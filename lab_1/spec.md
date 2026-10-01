@@ -10,17 +10,29 @@ Describe the data structure to save *user* and *developer* profiles, *games*, *r
 
 - **`Developer`:** `id` (UUID, PK), `user_id` (UUID, FK), `company` (String), `company_contact` (String)
 
-- **`Game`:** `id` (UUID), `developer_id` (UUID, FK), `tittle` (String), `description` (TEXT), `base_price` (DECIMAL), `discount` (Integer), `release_date` (DateTime)
+- **`Game`:** `id` (UUID), `developer_id` (UUID, FK), `tittle` (String), `description` (TEXT), `base_price` (DECIMAL), `discount` (Integer), `release_date` (DateTime), `playtime` (Interval)
 
 - **`Review`:** `id` (UUID), `user_id` (UUID, FK), `game_id` (UUID, FK), `rating` (Integer), `comment` (TEXT), `creation_time` (DateTime)
 
 ## **Relationships**
 
 - `User` can be or not be a `Developer` ( 1:(0..1) )
-- `Developer`can have zero or many `Games` ( 1:N )
+- `Developer`can have zero or many `Games` ( (1..N):N )
 - `User` "owns" `Games` ( M:N )
 - `User` writes a `Review` ( 1:N )
 - `Game` gets a `Review` ( 1:N )
+
+## **Actors**
+
+1. **`Player`** - User, that checks out games, buyes them, saves them in library and leaves and read rewies.
+2. **`Developer`** - Specialised user, that can publish games, control his publishes(inherites basic **`Player`** capabilities).
+3. **`PaymentProcessing`** - Outsources system(Privat, Universal, etc.), that processes transactions.
+
+## **Main Goals**
+
+- Enable developers to publish games
+- Allow players to purchase games
+- Create a review system
 
 ## **Acceptance Criteria**
 
