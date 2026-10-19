@@ -1,35 +1,43 @@
-# Specification of ER-model for Pika-8 Hub
+# Specification of the ER Model for Pika-8 Hub
 
-## **Goal**
+## Goal
 
-Describe the data structure to save *user* and *developer* profiles, *games*, *reviews*.
+Describe the data structure for user and developer profiles, game catalog entries, ownership, and review records for the digital storefront domain.
 
-## **Entities & Attributes**
+## Entities and Attributes
 
-- **`User`:** `id` (UUID, PK), `username` (String), `email` (String), `registeration_date` (DateTime)
+- **User**: `id` (UUID, PK), `username` (String), `email` (String), `registration_date` (DateTime)
+- **Developer**: `id` (UUID, PK), `user_id` (UUID, FK), `company` (String), `company_contact` (String)
+- **Game**: `id` (UUID, PK), `developer_id` (UUID, FK), `title` (String), `description` (TEXT), `base_price` (DECIMAL), `discount` (Integer), `release_date` (DateTime), `playtime` (Interval)
+- **Review**: `id` (UUID, PK), `user_id` (UUID, FK), `game_id` (UUID, FK), `rating` (Integer), `comment` (TEXT), `creation_time` (DateTime)
 
-- **`Developer`:** `id` (UUID, PK), `user_id` (UUID, FK), `company` (String), `company_contact` (String)
+## Relationships
 
-- **`Game`:** `id` (UUID), `developer_id` (UUID, FK), `tittle` (String), `description` (TEXT), `base_price` (DECIMAL), `discount` (Integer), `release_date` (DateTime)
+- `User` may or may not be a `Developer` (1:0..1)
+- `Developer` can publish zero or many `Game` records (1:N)
+- `User` can own many `Game` records and each `Game` can be owned by many `User` records (M:N)
+- `User` writes zero or many `Review` records (1:N)
+- `Game` can have zero or many `Review` records (1:N)
 
-- **`Review`:** `id` (UUID), `user_id` (UUID, FK), `game_id` (UUID, FK), `rating` (Integer), `comment` (TEXT), `creation_time` (DateTime)
+## Actors
 
-## **Relationships**
+1. **Player** — a human user who browses catalog items, purchases games, stores them in a library, and writes or reads reviews.
+2. **Developer** — a specialized human user who publishes games and manages the catalog items they created.
+3. **PaymentGateway** — an external financial service used to validate transactions and process refunds.
 
-- `User` can be or not be a `Developer` ( 1:(0..1) )
-- `Developer`can have zero or many `Games` ( 1:N )
-- `User` "owns" `Games` ( M:N )
-- `User` writes a `Review` ( 1:N )
-- `Game` gets a `Review` ( 1:N )
+## Main Goals
 
-## **Acceptance Criteria**
+- Enable developers to publish games to the catalog.
+- Allow players to purchase games and obtain access rights.
+- Support review submission and rating aggregation.
+- Manage refund flows through an external payment provider.
 
-1. **PK Type:** Thou shalt make all Primary Keys as `UUID`.
+## Acceptance Criteria
 
-2. **Normalization:** Thy model shalt be Third Normal Form (3NF).
+1. **PK Type:** All primary keys SHALL be `UUID` values.
+2. **Normalization:** The model SHALL be compliant with 3NF.
+3. **M:N Representation:** Ownership SHALL be modeled as a many-to-many relationship between `User` and `Game` without hidden bridge-table ambiguity in the conceptual specification.
+4. **Naming Consistency:** Entity and field names SHALL match the Mermaid diagram and the requirement vocabulary exactly.
+5. **Field Style:** All attribute names SHALL use `snake_case` naming.
+6. **Actors:** At least one human actor and one external service actor SHALL be present in the use-case model.
 
-3. **Pure M:N Notation:** Thou shalt bring Many-to-Many entities directly unto one another. Thou shalt not forge no brigde betwixt them in thy ER-model.
-
-4. **Naming Consistency:** Thou shalt not name thy field and entities differ betwixt thy specification and thy Mermaid diagram, but shalt they match character for character. Thou shalt keep to thine casing uniform and unto thine attribute, thou shalt decree only in `snake_case`.
-
-5. **Declarative Syntax:** Thou shalt scribe thy diagram in Mermaid tongue. Thou shalt bear true to witness to thy cardinalities and thou shalt etch every Foreign Key reference upon thy path.

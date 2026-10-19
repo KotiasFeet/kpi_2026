@@ -3,40 +3,41 @@ config:
   theme: redux-dark-color
 ---
 erDiagram
-    USER ||--o| DEVELOPER : "can be"
-    DEVELOPER ||--o{ GAME : "has"
-    USER }o--o{ GAME : "owns"
-    USER ||--o{ REVIEW : "writes"
-    GAME ||--o{ REVIEW : "gets"
+    USER 			||--o| 	DEVELOPER : "can be"
+    DEVELOPER }|--o{ 	GAME 			: "publishes"
+    USER 			}o--o{ 	GAME 			: "owns"
+    USER 			||--o{ 	REVIEW 		: "writes"
+    GAME 			||--o{ 	REVIEW 		: "has"
 
     USER {
         UUID id PK
         String username
         String email
-        DateTime registeration_date
+        DateTime registration_date
     }
 
     DEVELOPER {
         UUID id PK
-				UUID user_id FK
+        UUID user_id FK
         String company
         String company_contact
     }
 
     GAME {
         UUID id PK
-				UUID developer_id FK
-        String tittle
+        UUID developer_id FK
+        String title
         TEXT description
         DECIMAL base_price
         Integer discount
         DateTime release_date
+        INTERVAL playtime
     }
 
     REVIEW {
         UUID id PK
-				UUID user_id FK
-				UUID game_id FK
+        UUID user_id FK
+        UUID game_id FK
         Integer rating
         TEXT comment
         DateTime creation_time
