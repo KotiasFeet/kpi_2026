@@ -25,11 +25,11 @@
 
 ## **Traceability Matrix**
 
-| Requirement ID | Associated EARS Trigger | User Story | Gherkin | Use Case | Coverage Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **REQ-001** | send request to PaymentProcessing| US-001 | GS-001 | UC-001, UC-002 | Covered |
-| **REQ-002** | create ownership link            | US-001 | GS-001 | UC-001         | Covered |
-| **REQ-003** | display average rating           |    -   |    -   | UC-005         | Partially Covered (No US/SC) |
-| **REQ-004** | reject unowned game review       | US-003 | GS-003 | UC-004         | Covered |
-| **REQ-005** | create Game record               | US-002 | GS-002 | UC-003         | Covered |
-| **REQ-006** | refund within 31 days            |    -   |    -   |    -           | **UNCOVERED** |
+| Requirement ID | Associated EARS Trigger           | User Story | Gherkin | Use Case       | Coverage Status |
+| :---           | :---                              | :---       | :---    | :---           | :--- |
+| **REQ-001**    | create Game record                | US-001     | GS-001  | UC-003         | Covered |
+| **REQ-002**    | send request to PaymentProcessing | US-004     | GS-002  | UC-001, UC-002 | Covered |
+| **REQ-003**    | create ownership link             | US-004     | GS-002  | UC-001         | Covered |
+| **REQ-004**    | display average rating            | US-003     |    -    | UC-005         | Partially Covered (No GS) |
+| **REQ-005**    | reject unowned game review        | US-005     | GS-003  | UC-004         | Covered |
+| **REQ-006**    | refund within 31 days             |    -       |    -    | UC-006         | Partially Covered (No US/GS) |
