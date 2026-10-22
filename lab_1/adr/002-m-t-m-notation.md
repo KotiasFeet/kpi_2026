@@ -1,4 +1,4 @@
-# ADR 002: Pure M:N Notation
+# ADR 002: Pure M:N Notation [DEPRECATED]
 
 ## **Context**
 

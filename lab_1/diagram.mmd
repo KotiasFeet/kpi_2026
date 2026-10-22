@@ -3,11 +3,14 @@ config:
   theme: redux-dark-color
 ---
 erDiagram
-    USER 			||--o| 	DEVELOPER : "can be"
-    DEVELOPER }|--o{ 	GAME 			: "publishes"
-    USER 			}o--o{ 	GAME 			: "owns"
-    USER 			||--o{ 	REVIEW 		: "writes"
-    GAME 			||--o{ 	REVIEW 		: "has"
+    USER 			||--o| 	DEVELOPER 			: "can be"
+    DEVELOPER ||--o{ 	GAME 						: "publishes"
+    USER 			||--o{ 	LIBRARY_RECORD 	: "has in library"
+    GAME 			||--o{ 	LIBRARY_RECORD 	: "added as"
+    USER 			||--o{ 	TRANSACTION 		: "makes"
+    GAME 			||--o{ 	TRANSACTION 		: "involved in"
+    USER 			||--o{ 	REVIEW 					: "writes"
+    GAME 			||--o{ 	REVIEW 					: "has"
 
     USER {
         UUID id PK
@@ -18,27 +21,41 @@ erDiagram
 
     DEVELOPER {
         UUID id PK
-				UUID user_id FK
+        UUID user_id FK
         String company
         String company_contact
     }
 
     GAME {
         UUID id PK
-				UUID developer_id FK
+        UUID developer_id FK
         String title
         TEXT description
         DECIMAL base_price
         Integer discount
         DateTime release_date
-				INTERVAL playtime
     }
 
     REVIEW {
         UUID id PK
-				UUID user_id FK
-				UUID game_id FK
+        UUID user_id FK
+        UUID game_id FK
         Integer rating
         TEXT comment
         DateTime creation_time
+    }
+
+    LIBRARY_RECORD {
+        UUID user_id FK
+        UUID game_id FK
+        INTERVAL playtime
+    }
+
+    TRANSACTION {
+        UUID id PK
+        UUID user_id FK
+        UUID game_id FK
+        DECIMAL amount
+        DateTime purchase_date
+        String status
     }
