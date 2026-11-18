@@ -7,6 +7,7 @@ flowchart LR
     dev["Developer (Human)"]
     pg["PaymentProcessing <br> «External System»"]
     as["Auth Service <br> «External System»"]
+    ra["Refund API <br> «Internal Service»"]
 
     dev -. "inherits" .-> player
 
@@ -29,8 +30,9 @@ flowchart LR
     player --> UC7
 
 		UC1 <--> pg
-    UC6 <--> pg
-    UC6 <--> as
+    UC6 <--> ra
+    ra <--> pg
+    ra <--> as
     UC7 <--> as
     UC4 -. "extend" .-> UC5
 

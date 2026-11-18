@@ -32,6 +32,16 @@ Describe the data structure to save *user* and *developer* profiles, *games*, *r
 1. **`Player`** - User, that checks out games, buys them, saves them in library, leaves and reads rewies.
 2. **`Developer`** - Specialised user, that can publish games, control his publishes(inherits basic **`Player`** capabilities).
 
+## **System Components**
+
+- **`Refund API`:** internal application service for the refund implementation. It receives an authenticated refund request, validates the refund policy, initiates the refund in `PaymentProcessing`, revokes Game access, and updates the Transaction status to `REFUNDED`.
+
+- **`LibraryService`:** internal service that provides transaction and library data. Updates library access and transaction status.
+
+- **`Auth Service`:** external authentication and authorization service used to validate users.
+
+- **`PaymentProcessing`:** external system that processes payments.
+
 ## **Main Goals**
 
 - Enable developers to publish games

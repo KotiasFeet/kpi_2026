@@ -57,7 +57,7 @@
 
 ### **Gherkin Scenarios: Deep dive into Game Refund (US-006)**
 
-- **[GS-004] Valid Refund:** *GIVEN* a **`Player`** owns the **`Game`** *AND* the **`Game`** was purchased less than 31 days ago, *AND* the recorded playtime is less than 120 minutes, *WHEN* they submit a refund request *THEN* the system revokes the **`Game`** access *AND* initiates a refund transaction via **`PaymentProcessing`**. *IF* the refund was not initiated successfully on the first request, *THEN* the system retries the initiation up to 3 additional times.
+- **[GS-004] Valid Refund:** *GIVEN* a **`Player`** owns the **`Game`** *AND* the **`Game`** was purchesed less then 31 days ago, *AND* the recorded playtime is less then 120 minutes, *WHEN* they submit a refund request *THEN* the system revoces the **`Game`** access *AND* initiates a refund transaction via **PaymentProcessing**. *IF* the refund was NOT initiated on the first request, *THEN* the system tris up to 3 more time.
 
 - **[GS-005] NOT Valid Refund 1:** *GIVEN* a **`Player`** owns the **`Game`** *AND* the **`Game`** was purchesed MORE then 31 days ago, *AND* the recorded playtime is LESS then 120 minutes, *WHEN* they submit a refund request *THEN* the system rejects the refund request *AND* displays *"Time limit exceeded"* error.
 
