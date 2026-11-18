@@ -1,0 +1,35 @@
+---
+config:
+  theme: redux-dark-color
+  look: neo
+---
+sequenceDiagram
+    autonumber
+    actor Player
+    participant Web as Pika-8 Web
+    participant API as Refund API
+    participant Auth as Auth Service
+    participant Library as LibraryService
+
+    Player ->> Web: requestRefund(gameId)
+	  activate Web
+
+	  Web ->> API: submitRefundRequest(userId, gameId, token)
+	  activate API
+
+		API ->> Auth: validateUser(token)	
+		Auth -->> API: userValidated()
+
+		API ->> Library: getTransactionAndLibrary(userId, gameId)
+		activate Library
+		Library -->> API: return(transactionId, purchaseDate, playTime)
+		deactivate Library
+
+		opt current_date - purchaseDate > 31 days
+        API ->> API: validatePurchaseDate(purchaseDate)
+				Note right of API: Failure: Purchase was made more than 31 days ago
+				API -->> Web: 403 Forbidden {reason: "Time limit exceeded"}
+		end
+
+    Web -->> Player: showError("Refund rejected: Time limit exceeded")
+    deactivate Web

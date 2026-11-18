@@ -1,0 +1,59 @@
+---
+config:
+  theme: redux-dark-color
+  look: neo
+---
+sequenceDiagram
+    autonumber
+    actor Player
+    participant Web as Pika-8 Web
+    participant API as Refund API
+    participant Auth as Auth Service
+    participant Library as LibraryService
+    participant Payment as PaymentProcessing
+
+    Player ->> Web: requestRefund(gameId)
+    activate Web
+
+    Web ->> API: submitRefundRequest(userId, gameId, token)
+    activate API
+
+    API ->> Auth: validateUser(token)
+    Auth -->> API: userValidated()
+
+    API ->> Library: getTransactionAndLibrary(userId, gameId)
+    activate Library
+    Library -->> API: return(transactionId, purchaseDate, playTime, amount)
+    deactivate Library
+
+    alt payment callback is delayed
+        loop retryCount < 3
+            API ->> Payment: checkRefundStatus(transactionId)
+            activate Payment
+            Payment -->> API: refundStatus("PENDING")
+            deactivate Payment
+        end
+    else payment callback has succeeded
+        API ->> API: validateRefundPolicy(purchaseDate, playTime)
+    end
+
+    API ->> Payment: initiateRefund(transactionId, amount)
+    activate Payment
+    Payment -->> API: refundAccepted(status="SUCCESS")
+    deactivate Payment
+
+    API ->> Library: revokeGameAccess(userId, gameId)
+    activate Library
+    Library -->> API: accessRevoked()
+    deactivate Library
+
+    API ->> Library: updateTransactionStatus(transactionId, "REFUNDED")
+    activate Library
+    Library -->> API: statusUpdated()
+    deactivate Library
+
+    API -->> Web: 200 OK {status: "REFUNDED"}
+    deactivate API
+
+    Web -->> Player: showSuccess("Refund successfully processed")
+    deactivate Web
