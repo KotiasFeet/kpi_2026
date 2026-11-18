@@ -6,6 +6,7 @@ flowchart LR
     player["Player (Human)"]
     dev["Developer (Human)"]
     pg["PaymentProcessing <br> «External System»"]
+    as["Auth Service <br> «External System»"]
 
     dev -. "inherits" .-> player
 
@@ -17,6 +18,7 @@ flowchart LR
         UC4(["UC-004: Leave Review"])
         UC5(["UC-005: View Game Page"])
         UC6(["UC-006: Request Refund"])
+				UC7(["UC-007: Login"])
     end
 
     player --> UC1
@@ -24,9 +26,12 @@ flowchart LR
     player --> UC5
     dev --> UC3
     player --> UC6
+    player --> UC7
 
 		UC1 <--> pg
     UC6 <--> pg
+    UC6 <--> as
+    UC7 <--> as
     UC4 -. "extend" .-> UC5
 
     UC1 -. "include" .-> UC2
